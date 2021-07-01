@@ -1,6 +1,5 @@
 const User = require("mongoose").model("User");
 const utils = require("../libs/utils");
-const passport = require("passport");
 
 module.exports = {
   createUser: (req, res, next) => {
@@ -32,5 +31,37 @@ module.exports = {
         expires: jwt.expires,
       });
     });
+  },
+  userLogin: (req, res, next) => {
+    User.findOne({ email: req.body.email })
+      .then((user) => {
+        if (!user) {
+          res.json({
+            error: "User is not found",
+          });
+        }
+        const isValid = utils.validPassword(
+          req.body.password,
+          user.hash,
+          user.salt
+        );
+        if (isValid) {
+          const jwt = utils.issueJWT(user);
+          return res.json({
+            message: "Login Succesful",
+            token: jwt.token,
+            expires: jwt.expires,
+          });
+        } else {
+          return res.json({
+            message: "Email or Password doenst match",
+          });
+        }
+      })
+      .catch((err) => {
+        return res.json({
+          error: err,
+        });
+      });
   },
 };
