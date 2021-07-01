@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const fs = require("fs");
 const path = require("path");
 
-// private key
+// private key we use it to encrypt the token
 const privKeyPath = path.join(__dirname, "..", "/keys/id_rsa_priv.pem");
 const PRIV_KEY = fs.readFileSync(privKeyPath, "utf8");
 
@@ -46,3 +46,8 @@ function issueJWT(user) {
     expires: expiresIn,
   };
 }
+module.exports = {
+  genPassword,
+  validPassword,
+  issueJWT,
+};
