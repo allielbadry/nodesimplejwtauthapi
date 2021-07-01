@@ -19,6 +19,7 @@ const userSchema = new Schema({
   },
 });
 
+// get the user full name
 userSchema.virtual("fullName").get(function () {
   return `${this.name.first} ${this.name.last}`;
 });
