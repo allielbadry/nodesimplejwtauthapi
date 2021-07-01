@@ -10,7 +10,7 @@ if (process.env.NODE_ENV === "dev") {
     console.log("DB IS CONNECT");
   });
 } else if (process.env.NODE_ENV == "production") {
-  mongoose.connect(process.env.DB_URI);
+  mongoose.connect(process.env.DB_PRODUCTION_URI);
 
   mongoose.connection.once("connect", () => {
     console.log("DB IS CONNECT");
