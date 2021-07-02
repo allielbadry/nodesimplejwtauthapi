@@ -1,4 +1,4 @@
-const User = require("mongoose").model("User");
+const User = require("../models/userModel");
 const utils = require("../libs/utils");
 
 module.exports = {

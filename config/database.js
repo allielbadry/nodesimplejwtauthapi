@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 // set mongoose db settings
 mongoose.set("useNewUrlParser", true);

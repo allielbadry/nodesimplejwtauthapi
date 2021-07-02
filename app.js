@@ -3,6 +3,8 @@ const cors = require("cors");
 const path = require("path");
 const passport = require("passport");
 
+require("dotenv").config();
+
 const app = express();
 
 // Configures the database and opens a global connection that can be used in any module with `mongoose.connection`

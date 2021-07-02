@@ -1,17 +1,17 @@
 const fs = require("fs");
 const path = require("path");
 const User = require("mongoose").model("User");
-const jwtStrategy = require("passort-jwt").Strategy;
+const jwtStrategy = require("passport-jwt").Strategy;
 const jwtExtract = require("passport-jwt").ExtractJwt;
 
 // the public key we use to decrypt the token
 const pubKeyPath = path.join(__dirname, "..", "/keys/id_rsa_pub.pem");
-const PUB_KEY = fs.readFileSync(publicKeyPath, "utf8");
+const PUB_KEY = fs.readFileSync(pubKeyPath, "utf8");
 
 // options for the passport jwt strategy
 options = {
   jwtFromRequest: jwtExtract.fromAuthHeaderAsBearerToken(),
-  secretOrKey: PRIV_KEY,
+  secretOrKey: PUB_KEY,
   algorithms: ["RS256"],
 };
 
