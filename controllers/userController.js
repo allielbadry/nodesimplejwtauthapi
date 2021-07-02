@@ -23,10 +23,10 @@ module.exports = {
         });
       }
       const jwt = utils.issueJWT(user);
-      const { fullName, email } = user;
+      const fullName = user.name.first + " " + user.name.last;
       return res.json({
-        fullName,
-        email,
+        fullName: fullName,
+        email: user.email,
         token: jwt.token,
         expires: jwt.expires,
       });
@@ -63,5 +63,23 @@ module.exports = {
           error: err,
         });
       });
+  },
+  userById(req, res, next, id) {
+    User.findById(id).exec((err, user) => {
+      if (err || !user) {
+        res.json({
+          error: "User not found",
+        });
+      }
+      req.user = user;
+      next();
+    });
+  },
+  getUser: (req, res, next) => {
+    const { name, email } = req.user;
+    res.json({
+      name,
+      email,
+    });
   },
 };
